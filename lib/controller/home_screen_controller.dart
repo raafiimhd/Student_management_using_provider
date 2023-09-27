@@ -1,18 +1,31 @@
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
-class HomeScreenController extends GetxController {
-  int index = 0;
-  //forNavigatePages
-  changeIndex(int index) {
-    this.index = index;
-    update();
-  }
-  //forSearching
-  searchData() {
-    var searchQuery = ''.obs; // Observable to store the search query
+class HomeScreenProvider extends ChangeNotifier {
+  int _index = 0;
 
-    void setSearchQuery(String query) {
-      searchQuery.value = query; // Update the search query
-    }
+  // Getter for index
+  int get index => _index;
+
+  // Setter for index
+  set index(int newIndex) {
+    _index = newIndex;
+    notifyListeners();
   }
+
+  // // For searching
+  // String _searchQuery = '';
+
+  // // Getter for searchQuery
+  // String get searchQuery => _searchQuery;
+
+  // // Setter for searchQuery
+  // set searchQuery(String newQuery) {
+  //   _searchQuery = newQuery;
+  //   notifyListeners();
+  // }
+
+  // // Method to update the search query
+  // void updateSearchQuery(String query) {
+  //   searchQuery = query;
+  // }
 }

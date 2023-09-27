@@ -1,29 +1,35 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:student_management/controller/addstudent_controller.dart';
 import 'package:student_management/model/model.dart';
-import 'package:student_management/services/services.dart';
-import 'package:student_management/view/screen_home/add_student_Screen/add_Student_screen.dart';
 
-class SearchControllerGet extends GetxController {
+class SearchControllerGet extends ChangeNotifier {
   List<StudentModel> searchedstudent = [];
+  List<StudentModel> all = [];
   final searchcontroller1 = TextEditingController();
-   String _searchQuery = '';
-
-  searchStudent() {
-    searchedstudent = addController.students
-        .where((element) => element.name.contains(_searchQuery.toLowerCase()))
+ searchStudent(String query)  {
+    searchedstudent =all
+        .where((element) => element.name.contains(query.toLowerCase()))
         .toList();
-    update();
+    notifyListeners();
   }
+  
+  // void updateSearchQuery(String query) {
+  //   _searchQuery = query;
+  //   searchStudent();
+  // }
   Future<void> getAllStudents() async {
     final studentDB = await Hive.openBox<StudentModel>('students');
     // ignore: invalid_use_of_protected_member
-    searchedstudent.clear();
+    all.clear();
     // ignore: invalid_use_of_protected_member
-    searchedstudent.addAll(studentDB.values);
+    all.addAll(studentDB.values);
     // update();
   }
+
+  // void updateQueryChange(String query) {
+  //   searchedQuery = query;
+  //   notifyListeners();
+  // }
 }
+

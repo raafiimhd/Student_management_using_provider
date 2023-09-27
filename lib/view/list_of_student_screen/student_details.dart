@@ -1,17 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:student_management/core/colors.dart';
 import 'package:student_management/model/model.dart';
 import 'package:student_management/view/edit_page/edit_page.dart';
 
 class StudentDetails extends StatelessWidget {
   StudentDetails(
-      {super.key,
-      required this.student,
-      required this.index,
-      this.imagepath});
+      {super.key, required this.student, required this.index, this.imagepath});
 
   StudentModel student;
   int index;
@@ -23,9 +19,9 @@ class StudentDetails extends StatelessWidget {
         automaticallyImplyLeading: false,
         leading: IconButton(
             onPressed: () {
-              Get.back();
+              Navigator.of(context).pop();
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: whiteColor,
             )),
@@ -38,10 +34,14 @@ class StudentDetails extends StatelessWidget {
         actions: [
           GestureDetector(
             onTap: () {
-              Get.to(EditPage(student:student
-               ,index: index,));
+              // print(student);
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => (EditPage(
+                        student: student,
+                        index: index,
+                      ))));
             },
-            child: Icon(
+            child: const Icon(
               Icons.edit,
               color: whiteColor,
             ),
